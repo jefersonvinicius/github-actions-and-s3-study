@@ -1,0 +1,14 @@
+name: GitHub Action Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Starting building..."
+      - run: echo "Referring the ${{ github.ref }}"
+      - name: Running tests...
+        run: yarn test --watchAll --silent
+      - if: startsWith(github.ref, "release")
+        run: echo "Building to HML"
+      - if: startsWith(github.ref, "release")
+        run: echo "Building to PROD"
