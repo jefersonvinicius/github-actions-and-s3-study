@@ -4,11 +4,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - run: echo "Starting building..."
       - run: echo "Referring the ${{ github.ref }}"
       - name: Running tests...
         run: yarn test --watchAll --silent
-      - if: startsWith(github.ref, 'release')
+      - if: startsWith(github.ref, 'refs/heads/release')
         run: echo "Building to HML"
-      - if: startsWith(github.ref, 'release')
+      - if: startsWith(github.ref, 'refs/heads/main')
         run: echo "Building to PROD"
