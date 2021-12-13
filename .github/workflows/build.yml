@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
       - run: echo "Starting building..."
       - run: echo "Referring the ${{ github.ref }}"
       - name: Running tests...
