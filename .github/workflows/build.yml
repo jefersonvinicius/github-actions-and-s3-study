@@ -11,7 +11,7 @@ jobs:
       - run: echo "Starting building..."
       - run: echo "Referring the ${{ github.ref }}"
       - name: Running tests...
-        run: yarn test --watchAll --silent
+        run: yarn test --watchAll=false --silent
       - if: startsWith(github.ref, 'refs/heads/release')
         run: echo "Building to HML"
       - if: startsWith(github.ref, 'refs/heads/main')
