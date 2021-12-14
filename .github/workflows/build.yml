@@ -8,11 +8,16 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: yarn
-      - run: echo "Starting building..."
       - run: echo "Referring the ${{ github.ref }}"
       - name: Running tests...
         run: yarn test --watchAll=false --silent
+      - name: Building..
+        run: yarn build
       - if: startsWith(github.ref, 'refs/heads/release')
-        run: echo "Building to HML"
+        run: aws s3 sync build/ s3://my-react-apps-hml
       - if: startsWith(github.ref, 'refs/heads/main')
-        run: echo "Building to PROD"
+        run: aws s3 sync build/ s3://my-react-apps
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
